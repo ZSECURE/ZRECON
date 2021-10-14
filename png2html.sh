@@ -8,7 +8,9 @@ nmap_output_file=$3
 
 sudo nmap -A -p$port --open $target -oG $nmap_output_file
 
-for ip in $(cat $nmap_output_file | grep $port | grep -v "Nmap" | awk '{print $2}'); do  cutycapt --url=$ip --out=$ip.png ;done
+ports=$(echo $port | sed 's/,/\\|/g') 
+
+for ip in $(cat $nmap_output_file | grep '$ports' | grep -v "Nmap" | awk '{print $2}'); do  cutycapt --url=$ip --out=$ip.png ;done
 
 echo '<!DOCTYPE html><html lang="en"><head><title>Screenshots</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>p { color: red; text-align: center;}h1 { color: black; text-align: center;}</style></head><body>' > web.html
 
