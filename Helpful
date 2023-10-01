@@ -1,0 +1,4 @@
+# Loop Over Multiple Domains
+```
+cat domains.txt | while read line; do python3 zDNS.py $line ; done
+```
